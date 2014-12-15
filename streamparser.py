@@ -22,8 +22,8 @@ Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
 Reading = namedtuple('Reading', ['baseform', 'tags'])
 Reading.__doc__ = """A single analysis of a token.
     Fields:
-        baseform (str): The baseform (lemma, lexical form, citation form) of the reading.
-        tags (set of str): Morphological tags associated with the reading.
+        baseform (str): The base form (lemma, lexical form, citation form) of the reading.
+        tags (set of str): The morphological tags associated with the reading.
 """
 
 class LexicalUnit:
@@ -32,8 +32,8 @@ class LexicalUnit:
     Attributes:
         lexicalUnit (str): The lexical unit in Apertium stream format.
         wordform (str): The word form (surface form) of the lexical unit.
-        readings (list of list of Reading): The analyses of the lexical unit.
-        knownness (enum): The level of knowledge of the lexical unit.
+        readings (list of list of Reading): The analyses of the lexical unit with sublists containing all subreadings.
+        knownness (Knownness): The level of knowledge of the lexical unit.
     """
 
     def __init__(self, lexicalUnit):
