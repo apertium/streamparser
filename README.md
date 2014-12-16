@@ -6,6 +6,7 @@ Usage
 -----
 ### As a library
 #### With string input
+```python
     >>> from streamparser import parse
 
     >>> lexicalUnits = parse('^hypercholesterolemia/*hypercholesterolemia$\[\]\^\$[^ignoreme/yesreally$]^a\/s/a\/s<n><nt>$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$.eefe^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$')
@@ -16,8 +17,10 @@ Usage
     a/s (Knownness.known) → [[Reading(baseform='a/s', tags={'n', 'nt'})]]
     vino (Knownness.known) → [[Reading(baseform='vino', tags={'n', 'm', 'sg'})], [Reading(baseform='venir', tags={'ifi', 'vblex', 'p3', 'sg'})]]
     dímelo (Knownness.known) → [[Reading(baseform='decir', tags={'vblex', 'imp', 'p2', 'sg'}), Reading(baseform='+me', tags={'p1', 'mf', 'enc', 'sg', 'prn'}), Reading(baseform='+lo', tags={'p3', 'enc', 'nt', 'prn'})], [Reading(baseform='decir', tags={'vblex', 'imp', 'p2', 'sg'}), Reading(baseform='+me', tags={'p1', 'mf', 'enc', 'sg', 'prn'}), Reading(baseform='+lo', tags={'p3', 'enc', 'm', 'prn', 'sg'})]]
+```
 
 #### With file input
+```python
     >>> from streamparser import parse_file
 
     >>> lexicalUnits = parse_file(open('~/Downloads/analyzed.txt'))
@@ -29,9 +32,11 @@ Usage
     Grunnprinsipp (Knownness.known) → [[Reading(baseform='grunnprinsipp', tags={'n', 'nt', 'ind', 'sg'})], [Reading(baseform='grunnprinsipp', tags={'n', 'nt', 'pl', 'ind'})], [Reading(baseform='grunnprinsipp', tags={'n', 'nt', 'ind', 'sg'})], [Reading(baseform='grunnprinsipp', tags={'n', 'nt', 'pl', 'ind'})]]
     7 (Knownness.known) → [[Reading(baseform='7', tags={'qnt', 'pl', 'det'})]]
     px (Knownness.unknown) → []
+```
 
 ### From the terminal
 #### With standard input
+```bash
     $ bzcat ~/corpora/nnclean2.txt.bz2 | apertium-deshtml | lt-proc -we /usr/share/apertium/apertium-nno/nno.automorf.bin | python3 streamparser.py
     [[Reading(baseform='Høgre', tags={'np'})],
      [Reading(baseform='høgre', tags={'n', 'sp', 'nt'})],
@@ -45,8 +50,10 @@ Usage
     [[Reading(baseform='kolonne', tags={'n', 'm', 'ind', 'sg'})],
      [Reading(baseform='kolonne', tags={'n', 'm', 'ind', 'sg'})]]
     ...
+```
 
 #### With file input
+```bash
     $ bzcat ~/corpora/nnclean2.txt.bz2 | apertium-deshtml | lt-proc -we /usr/share/apertium/apertium-nno/nno.automorf.bin > analyzed.txt
     $ python3 streamparser.py analyzed.txt
     [[Reading(baseform='Høgre', tags={'np'})],
@@ -61,4 +68,4 @@ Usage
     [[Reading(baseform='kolonne', tags={'n', 'm', 'ind', 'sg'})],
      [Reading(baseform='kolonne', tags={'n', 'm', 'ind', 'sg'})]]
     ...
-
+```
