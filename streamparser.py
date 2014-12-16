@@ -10,6 +10,7 @@ import re, pprint, sys, itertools, fileinput
 from enum import Enum
 from collections import namedtuple
 
+
 Knownness = Enum('Knownness', 'known unknown biunknown genunknown')
 Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
     Values:
@@ -19,12 +20,14 @@ Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
         genunknown: Denoted by '#', generated form not available.
 """
 
+
 Reading = namedtuple('Reading', ['baseform', 'tags'])
 Reading.__doc__ = """A single analysis of a token.
     Fields:
         baseform (str): The base form (lemma, lexical form, citation form) of the reading.
         tags (set of str): The morphological tags associated with the reading.
 """
+
 
 class LexicalUnit:
     """A lexical unit consisting of a lemma and its readings.
@@ -64,6 +67,7 @@ class LexicalUnit:
     def __repr__(self):
         return self.lexicalUnit
 
+
 def parse(stream):
     """Generates lexical units from a character stream.
 
@@ -102,8 +106,13 @@ def parse(stream):
 
         escaping = False
 
+
+def parse_file(f):
+    return parse(itertools.chain.from_iterable(f))
+
+
 if __name__ == '__main__':
-    lexicalUnits = parse(itertools.chain.from_iterable(fileinput.input()))
+    lexicalUnits = parse_file(fileinput.input())
 
     for lexicalUnit in lexicalUnits:
         pprint.pprint(lexicalUnit.readings, width=120)
