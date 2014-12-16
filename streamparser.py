@@ -108,6 +108,15 @@ def parse(stream):
 
 
 def parse_file(f):
+    """Generates lexical units from a file.
+
+    Args:
+        f (file): A file containing lexical units, superblanks and other text.
+
+    Yields:
+        LexicalUnit: The next lexical unit found in the file.
+    """
+
     return parse(itertools.chain.from_iterable(f))
 
 
