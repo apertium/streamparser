@@ -68,17 +68,20 @@ class LexicalUnit:
         return self.lexicalUnit
 
 
-def parse(stream):
+def parse(stream, withText=False):
     """Generates lexical units from a character stream.
 
     Args:
         stream (iterable): A character stream containing lexical units, superblanks and other text.
+        withText (bool, optional): A boolean defining whether to output preceding text with each lexical unit.
 
     Yields:
-        LexicalUnit: The next lexical unit found in the character stream.
+        LexicalUnit: The next lexical unit found in the character stream. (if withText is False)
+        (str, LexicalUnit): The next lexical unit found in the character stream and the the text that seperated it from the prior unit in a tuple. (if withText is True)
     """
 
     buffer = ''
+    textBuffer = ''
     inLexicalUnit = False
     inSuperblank = False
     escaping = False
@@ -93,8 +96,12 @@ def parse(stream):
                 inSuperblank = False
         elif inLexicalUnit:
             if char == '$' and not escaping:
-                yield LexicalUnit(buffer)
+                if withText:
+                    yield (textBuffer, LexicalUnit(buffer))
+                else:
+                    yield LexicalUnit(buffer)
                 buffer = ''
+                textBuffer = ''
                 inLexicalUnit = False
             else:
                 buffer += char
@@ -103,6 +110,8 @@ def parse(stream):
                 inSuperblank = True
             elif char == '^' and not escaping:
                 inLexicalUnit = True
+            else:
+                textBuffer += char
 
         escaping = False
 
