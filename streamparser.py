@@ -55,7 +55,7 @@ class LexicalUnit:
 
                 subreadingParts = re.findall(r'([^<]+)((?:<[^>]+>)+)', reading)
                 for subreading in subreadingParts:
-                    baseform = subreading[0]
+                    baseform = subreading[0].lstrip('+')
                     tags = set(re.findall(r'<([^>]+)>', subreading[1]))
 
                     subreadings.append(Reading(baseform=baseform, tags=tags))
