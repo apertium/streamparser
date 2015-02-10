@@ -22,14 +22,28 @@ Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
 
 
 Reading = namedtuple('Reading', ['baseform', 'tags'])
-Reading.__doc__ = """A single analysis of a token.
+Reading.__doc__ = """A single subreading of an analysis of a token.
     Fields:
         baseform (str): The base form (lemma, lexical form, citation form) of the reading.
         tags (set of str): The morphological tags associated with the reading.
 """
 
+def mainpos(reading, ltr=False):
+    """Return the first part-of-speech tag of a reading. If there are
+    several subreadings, by default give the first tag of the last
+    subreading. If ltr=True, give the first tag of the first
+    subreading, see
+    http://beta.visl.sdu.dk/cg3/single/#sub-stream-apertium for more
+    information.
+
+    """
+    if ltr:
+        return reading[0].tags[0]
+    else:
+        return reading[-1].tags[0]
 
 class LexicalUnit:
+
     """A lexical unit consisting of a lemma and its readings.
 
     Attributes:
@@ -56,7 +70,7 @@ class LexicalUnit:
                 subreadingParts = re.findall(r'([^<]+)((?:<[^>]+>)+)', reading)
                 for subreading in subreadingParts:
                     baseform = subreading[0]
-                    tags = set(re.findall(r'<([^>]+)>', subreading[1]))
+                    tags = re.findall(r'<([^>]+)>', subreading[1])
 
                     subreadings.append(Reading(baseform=baseform, tags=tags))
 
