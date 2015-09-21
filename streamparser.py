@@ -138,7 +138,7 @@ def parse(stream, withText=False):
         escaping = False
 
 
-def parse_file(f):
+def parse_file(f, withText=False):
     """Generates lexical units from a file.
 
     Args:
@@ -148,7 +148,7 @@ def parse_file(f):
         LexicalUnit: The next lexical unit found in the file.
     """
 
-    return parse(itertools.chain.from_iterable(f))
+    return parse(itertools.chain.from_iterable(f), withText)
 
 
 if __name__ == '__main__':
