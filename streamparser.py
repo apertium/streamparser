@@ -25,7 +25,7 @@ Reading = namedtuple('Reading', ['baseform', 'tags'])
 Reading.__doc__ = """A single subreading of an analysis of a token.
     Fields:
         baseform (str): The base form (lemma, lexical form, citation form) of the reading.
-        tags (set of str): The morphological tags associated with the reading.
+        tags (list of str): The morphological tags associated with the reading.
 """
 
 def mainpos(reading, ltr=False):
@@ -108,6 +108,7 @@ def parse(stream, withText=False):
         if inSuperblank:
             if char == ']' and not escaping:
                 inSuperblank = False
+            textBuffer += char
         elif inLexicalUnit:
             if char == '$' and not escaping:
                 if withText:
@@ -122,6 +123,7 @@ def parse(stream, withText=False):
         else:
             if char == '[' and not escaping:
                 inSuperblank = True
+                textBuffer += char
             elif char == '^' and not escaping:
                 inLexicalUnit = True
             else:
