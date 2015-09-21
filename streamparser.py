@@ -28,6 +28,12 @@ SReading.__doc__ = """A single subreading of an analysis of a token.
         tags (list of str): The morphological tags associated with the reading.
 """
 
+def subreadingToString(sub):
+    return sub.baseform+"".join("<"+t+">" for t in sub.tags)
+
+def readingToString(reading):
+    return "+".join(subreadingToString(sub) for sub in reading)
+
 def mainpos(reading, ltr=False):
     """Return the first part-of-speech tag of a reading. If there are
     several subreadings, by default give the first tag of the last
