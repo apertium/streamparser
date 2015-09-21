@@ -21,8 +21,8 @@ Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
 """
 
 
-Reading = namedtuple('Reading', ['baseform', 'tags'])
-Reading.__doc__ = """A single subreading of an analysis of a token.
+SReading = namedtuple('SReading', ['baseform', 'tags'])
+SReading.__doc__ = """A single subreading of an analysis of a token.
     Fields:
         baseform (str): The base form (lemma, lexical form, citation form) of the reading.
         tags (list of str): The morphological tags associated with the reading.
@@ -49,7 +49,7 @@ class LexicalUnit:
     Attributes:
         lexicalUnit (str): The lexical unit in Apertium stream format.
         wordform (str): The word form (surface form) of the lexical unit.
-        readings (list of list of Reading): The analyses of the lexical unit with sublists containing all subreadings.
+        readings (list of list of SReading): The analyses of the lexical unit with sublists containing all subreadings.
         knownness (Knownness): The level of knowledge of the lexical unit.
     """
 
@@ -72,7 +72,7 @@ class LexicalUnit:
                     baseform = subreading[0].lstrip('+')
                     tags = re.findall(r'<([^>]+)>', subreading[1])
 
-                    subreadings.append(Reading(baseform=baseform, tags=tags))
+                    subreadings.append(SReading(baseform=baseform, tags=tags))
 
                 self.readings.append(subreadings)
             else:
