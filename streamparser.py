@@ -59,6 +59,7 @@ class LexicalUnit:
         knownness (Knownness): The level of knowledge of the lexical unit.
     """
 
+    knownness = Knownness.known
     def __init__(self, lexicalUnit):
         self.lexicalUnit = lexicalUnit
 
@@ -70,7 +71,6 @@ class LexicalUnit:
         for reading in readings:
             reading = reading.replace(r'\/', '/')
             if readings[0][0] not in '*#@':
-                self.knownness = Knownness.known
                 subreadings = []
 
                 subreadingParts = re.findall(r'([^<]+)((?:<[^>]+>)+)', reading)
