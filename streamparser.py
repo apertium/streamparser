@@ -64,12 +64,12 @@ class LexicalUnit:
         self.lexicalUnit = lexicalUnit
 
         cohort = re.split(r'(?<!\\)/', lexicalUnit)
-        self.wordform = cohort[0].replace(r'\/', '/')
+        self.wordform = cohort[0]
         readings = cohort[1:]
 
         self.readings = []
         for reading in readings:
-            reading = reading.replace(r'\/', '/')
+            reading = reading
             if readings[0][0] not in '*#@':
                 subreadings = []
 
@@ -104,19 +104,20 @@ def parse(stream, withText=False):
     textBuffer = ''
     inLexicalUnit = False
     inSuperblank = False
-    escaping = False
 
     for char in stream:
-        if char == '\\' and not inLexicalUnit:
-            escaping = True
-            continue
 
         if inSuperblank:
-            if char == ']' and not escaping:
+            if char == ']':
                 inSuperblank = False
-            textBuffer += char
+                textBuffer += char
+            elif char == '\\':
+                textBuffer += char
+                textBuffer += next(stream)
+            else:
+                textBuffer += char
         elif inLexicalUnit:
-            if char == '$' and not escaping:
+            if char == '$':
                 if withText:
                     yield (textBuffer, LexicalUnit(buffer))
                 else:
@@ -124,18 +125,22 @@ def parse(stream, withText=False):
                 buffer = ''
                 textBuffer = ''
                 inLexicalUnit = False
+            elif char == '\\':
+                buffer += char
+                buffer += next(stream)
             else:
                 buffer += char
         else:
-            if char == '[' and not escaping:
+            if char == '[':
                 inSuperblank = True
                 textBuffer += char
-            elif char == '^' and not escaping:
+            elif char == '^':
                 inLexicalUnit = True
+            elif char == '\\':
+                textBuffer += char
+                textBuffer += next(stream)
             else:
                 textBuffer += char
-
-        escaping = False
 
 
 def parse_file(f, withText=False):
