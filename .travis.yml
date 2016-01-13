@@ -15,5 +15,5 @@ install:
     - "if [[ $TRAVIS_PYTHON_VERSION = 'pypy3' ]]; then pip3 install enum34; fi"
 
 script:
-    - ./test.sh
+    - ./t/run-tests
 

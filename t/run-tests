@@ -9,7 +9,11 @@ trap 'rm -f "${got}"' EXIT
 echo '[\^keep<escapes>\$] \^ \$ \/ \[ \] ^x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag>$' | python3 -c 'from streamparser import parse_file, readingToString
 import sys
 for blank, lu in parse_file(sys.stdin, withText=True):
-    print("BLANK:"+blank+"\nLU:"+str(lu));print(lu.readings);print(lu.wordform)
+    print("BLANK:"+blank)
+    print("LU:"+str(lu))
+    print(lu.readings)
+    print(lu.wordform)
+    print(lu.knownness)
 ' >"${got}"
 
 diff -U0 "${got}" "${exp}"

@@ -2,3 +2,4 @@ BLANK:[\^keep<escapes>\$] \^ \$ \/ \[ \]
 LU:x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag>
 [[SReading(baseform='A\\$\\^B', tags=['tag', 'tag2'])], [SReading(baseform='A\\/S', tags=['tag'])]]
 x\/y\^\$\<z\>å
+Knownness.known
