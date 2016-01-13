@@ -12,13 +12,17 @@ from collections import namedtuple
 
 
 Knownness = Enum('Knownness', 'known unknown biunknown genunknown')
-Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
+try:
+    Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
     Values:
         known
         unknown: Denoted by '*', analysis not available.
         biunknown: Denoted by '@', translation not available.
         genunknown: Denoted by '#', generated form not available.
 """
+except AttributeError:
+    # Python 3.2 users have to read the source
+    pass
 
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
