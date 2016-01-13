@@ -24,13 +24,16 @@ except AttributeError:
     # Python 3.2 users have to read the source
     pass
 
-
 SReading = namedtuple('SReading', ['baseform', 'tags'])
-SReading.__doc__ = """A single subreading of an analysis of a token.
+try:
+    SReading.__doc__ = """A single subreading of an analysis of a token.
     Fields:
         baseform (str): The base form (lemma, lexical form, citation form) of the reading.
         tags (list of str): The morphological tags associated with the reading.
 """
+except AttributeError:
+    # Python 3.2 users have to read the source
+    pass
 
 def subreadingToString(sub):
     return sub.baseform+"".join("<"+t+">" for t in sub.tags)
