@@ -2,6 +2,8 @@ streamparser
 ============
 Python library to parse [Apertium stream format](http://wiki.apertium.org/wiki/Apertium_stream_format), generating `LexicalUnit`s.
 
+[![Build Status](https://travis-ci.org/goavki/streamparser.svg)](https://travis-ci.org/goavki/streamparser)
+
 Usage
 -----
 ### As a library
