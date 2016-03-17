@@ -76,8 +76,9 @@ class LexicalUnit:
 
         self.readings = []
         for reading in readings:
-            reading = reading
-            if readings[0][0] not in '*#@':
+            if len(reading) < 1:
+                print("WARNING: Empty readings for {}".format(self.lexicalUnit), file=sys.stderr)
+            elif reading[0] not in '*#@':
                 subreadings = []
 
                 subreadingParts = re.findall(r'([^<]+)((?:<[^>]+>)+)', reading)
