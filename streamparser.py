@@ -11,17 +11,22 @@ from enum import Enum
 from collections import namedtuple
 
 
-Knownness = Enum('Knownness', 'known unknown biunknown genunknown')
-try:
-    Knownness.__doc__ = """Level of knowledge associated with a lexical unit.
+class Knownness:
+    __doc__ = """Level of knowledge associated with a lexical unit.
     Values:
         known
         unknown: Denoted by '*', analysis not available.
         biunknown: Denoted by '@', translation not available.
         genunknown: Denoted by '#', generated form not available.
 """
-except AttributeError:
-    # Python 3.2 users have to read the source
+
+class known(Knownness):
+    pass
+class unknown(Knownness):
+    pass
+class biunknown(Knownness):
+    pass
+class genunknown(Knownness):
     pass
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
@@ -66,7 +71,7 @@ class LexicalUnit:
         knownness (Knownness): The level of knowledge of the lexical unit.
     """
 
-    knownness = Knownness.known
+    knownness = known
     def __init__(self, lexicalUnit):
         self.lexicalUnit = lexicalUnit
 
@@ -90,7 +95,7 @@ class LexicalUnit:
 
                 self.readings.append(subreadings)
             else:
-                self.knownness = {'*': Knownness.unknown, '@': Knownness.biunknown, '#': Knownness.genunknown}[readings[0][0]]
+                self.knownness = {'*': unknown, '@': biunknown, '#': genunknown}[readings[0][0]]
 
     def __repr__(self):
         return self.lexicalUnit
