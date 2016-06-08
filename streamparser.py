@@ -7,7 +7,6 @@ Consumes input from a file (first argument) or stdin, parsing and pretty printin
 """
 
 import re, pprint, sys, itertools, fileinput
-from enum import Enum
 from collections import namedtuple
 
 
@@ -19,15 +18,16 @@ class Knownness:
         biunknown: Denoted by '@', translation not available.
         genunknown: Denoted by '#', generated form not available.
 """
+    symbol = ""
 
 class known(Knownness):
     pass
 class unknown(Knownness):
-    pass
+    symbol = "*"
 class biunknown(Knownness):
-    pass
+    symbol = "@"
 class genunknown(Knownness):
-    pass
+    symbol = "#"
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
 try:
