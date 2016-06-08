@@ -15,7 +15,7 @@ for blank, lu in parse_file(sys.stdin, withText=True):
     print("LU:"+str(lu))
     print(lu.readings)
     print(lu.wordform)
-    print(lu.knownness)
+    print(lu.knownness.__name__)
 ' >"${got}"
 
 diff -U0 "${got}" "${exp}"
