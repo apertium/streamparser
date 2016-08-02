@@ -30,7 +30,7 @@ class genunknown(Knownness):
     symbol = "#"
 
 def symbolToKnownness(symbol):
-    return {'*': unknown, '@': biunknown, '#': genunknown}.get(symbol, known)
+    return {"*": unknown, "@": biunknown, "#": genunknown}.get(symbol, known)
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
 try:
@@ -83,7 +83,7 @@ class LexicalUnit:
         readings = cohort[1:]
 
         if len(readings) == 1:
-            self.knownness = symbolToKnownness(readings[0][0])
+            self.knownness = symbolToKnownness(readings[0][:1])
 
         self.readings = []
         for reading in readings:
