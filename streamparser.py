@@ -9,6 +9,11 @@ Consumes input from a file (first argument) or stdin, parsing and pretty printin
 import re, pprint, sys, itertools, fileinput
 from collections import namedtuple
 
+__author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
+__copyright__ = "Copyright 2016, Apertium"
+__credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
+__license__ = "GPLv3"
+__status__ = "Production"
 
 class Knownness:
     __doc__ = """Level of knowledge associated with a lexical unit.
