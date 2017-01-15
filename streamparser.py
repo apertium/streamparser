@@ -12,7 +12,7 @@ from collections import namedtuple
 __author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __copyright__ = "Copyright 2016, Apertium"
 __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
-__license__ = "GPLv3"
+__license__ = "GPLv3+"
 __status__ = "Production"
 
 class Knownness:
