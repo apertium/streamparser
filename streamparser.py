@@ -10,7 +10,7 @@ import re, pprint, sys, itertools, fileinput
 from collections import namedtuple
 
 __author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
-__copyright__ = "Copyright 2016, Apertium"
+__copyright__ = "Copyright 2016--2017, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
 __license__ = "GPLv3+"
 __status__ = "Production"
