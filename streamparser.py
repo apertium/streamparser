@@ -14,6 +14,7 @@ __copyright__ = "Copyright 2016--2017, Sushain K. Cherivirala, Kevin Brubeck Unh
 __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
 __license__ = "GPLv3+"
 __status__ = "Production"
+__version__ = "4.0.2"
 
 class Knownness:
     __doc__ = """Level of knowledge associated with a lexical unit.
