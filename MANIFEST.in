@@ -1,0 +1,4 @@
+include README.md
+include LICENCE
+include *.py
+recursive-include t *
