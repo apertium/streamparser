@@ -8,7 +8,9 @@ trap 'rm -f "${got}"' EXIT
 
 PYTHON=${PYTHON:-python3}
 
-echo '[\^keep<escapes>\$] \^ \$ \/ \[ \] ^x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag>$' | "${PYTHON}" -c 'from streamparser import parse_file, readingToString
+echo '[\^keep<escapes>\$] \^ \$ \/ \[ \] ^x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag><#1-\>2>$' \
+    | "${PYTHON}" -c '
+from streamparser import parse_file, readingToString
 import sys
 for blank, lu in parse_file(sys.stdin, withText=True):
     print("BLANK:"+blank)

@@ -69,6 +69,61 @@ def mainpos(reading, ltr=False):
     else:
         return reading[-1].tags[0]
 
+
+def parseTags(tagstr):
+    inTag = False
+    tags = []
+    buf = ""
+    stream = (c for c in tagstr)
+    for c in stream:
+        if not inTag and c == "<":
+            inTag = True
+            continue
+        elif c == "\\":
+            buf += c
+            buf += next(stream)
+        elif c == ">":
+            tags.append(buf)
+            buf = ""
+            inTag = False
+        else:
+            buf += c
+    if buf != "":
+        tags.append(buf)
+    return tags
+
+
+def parseSubreading(reading):
+    inLemma = True
+    lemma = ""
+    subs = []
+    buf = ""
+    stream = (c for c in reading)
+    for c in stream:
+        if c == "+":
+            subs.append((lemma, buf))
+            buf = ""
+            lemma = ""
+            inLemma = True
+            continue
+        elif c == "\\":
+            buf += c
+            buf += next(stream)
+        elif inLemma and c == "<":
+            inLemma = False
+            lemma = buf
+            buf = ""
+            buf += c
+        else:
+            buf += c
+    if buf != "":
+        if inLemma:
+            subs.append((lemma + buf, ""))
+        else:
+            subs.append((lemma,  buf))
+    return subs
+
+
 class LexicalUnit:
 
     """A lexical unit consisting of a lemma and its readings.
@@ -97,12 +152,9 @@ class LexicalUnit:
                 print("WARNING: Empty readings for {}".format(self.lexicalUnit), file=sys.stderr)
             else:
                 subreadings = []
-
-                subreadingParts = re.findall(r'([^<]+)((?:<[^>]+>)+)', reading)
-                for subreading in subreadingParts:
+                for subreading in parseSubreading(reading):
                     baseform = subreading[0].lstrip('+')
-                    tags = re.findall(r'<([^>]+)>', subreading[1])
-
+                    tags = parseTags(subreading[1])
                     subreadings.append(SReading(baseform=baseform, tags=tags))
 
                 self.readings.append(subreadings)

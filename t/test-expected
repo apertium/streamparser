@@ -1,5 +1,5 @@
 BLANK:[\^keep<escapes>\$] \^ \$ \/ \[ \] 
-LU:x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag>
-[[SReading(baseform='A\\$\\^B', tags=['tag', 'tag2'])], [SReading(baseform='A\\/S', tags=['tag'])]]
+LU:x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag><#1-\>2>
+[[SReading(baseform='A\\$\\^B', tags=['tag', 'tag2'])], [SReading(baseform='A\\/S', tags=['tag', '#1-\\>2'])]]
 x\/y\^\$\<z\>å
 known
