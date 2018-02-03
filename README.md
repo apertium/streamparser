@@ -11,7 +11,7 @@ Usage
 ```python
 >>> from streamparser import parse
 
->>> lexicalUnits = parse('^hypercholesterolemia/*hypercholesterolemia$\[\]\^\$[^ignoreme/yesreally$]^a\/s/a\/s<n><nt>$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$.eefe^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$')
+>>> lexicalUnits = parse(unit for unit in '^hypercholesterolemia/*hypercholesterolemia$\[\]\^\$[^ignoreme/yesreally$]^a\/s/a\/s<n><nt>$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$.eefe^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$')
 >>> for lexicalUnit in lexicalUnits:
         print('%s (%s) → %s' % (lexicalUnit.wordform, lexicalUnit.knownness, lexicalUnit.readings))
 
