@@ -7,6 +7,7 @@ Consumes input from a file (first argument) or stdin, parsing and pretty printin
 """
 
 import fileinput
+import functools
 import itertools
 import pprint
 import re
@@ -181,6 +182,7 @@ class LexicalUnit:
         return self.lexicalUnit
 
 
+@functools.singledispatch
 def parse(stream, withText=False):
     """Generates lexical units from a character stream.
 
@@ -233,6 +235,11 @@ def parse(stream, withText=False):
                 textBuffer += next(stream)
             else:
                 textBuffer += char
+
+
+@parse.register(str)
+def _parse_str(str, **kwargs):
+    return parse(iter(str), **kwargs)
 
 
 def parse_file(f, withText=False):
