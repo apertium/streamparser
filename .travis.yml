@@ -14,7 +14,7 @@ install:
 
 script:
     - flake8 *.py
-    - python3 -m unittest
+    - coverage run -m unittest test
 
 after_success:
     - coveralls
