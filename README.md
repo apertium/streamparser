@@ -14,9 +14,9 @@ Python library to parse [Apertium stream format](http://wiki.apertium.org/wiki/A
 ```python
 >>> from streamparser import parse
 
->>> lexicalUnits = parse('^hypercholesterolemia/*hypercholesterolemia$\[\]\^\$[^ignoreme/yesreally$]^a\/s/a\/s<n><nt>$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$.eefe^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$')
->>> for lexicalUnit in lexicalUnits:
-        print('%s (%s) → %s' % (lexicalUnit.wordform, lexicalUnit.knownness, lexicalUnit.readings))
+>>> lexical_units = parse('^hypercholesterolemia/*hypercholesterolemia$\[\]\^\$[^ignoreme/yesreally$]^a\/s/a\/s<n><nt>$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$.eefe^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$')
+>>> for lexical_unit in lexical_units:
+        print('%s (%s) → %s' % (lexical_unit.wordform, lexical_unit.knownness, lexical_unit.readings))
 
 hypercholesterolemia (Knownness.unknown) → []
 a/s (Knownness.known) → [[Reading(baseform='a/s', tags={'n', 'nt'})]]
@@ -29,9 +29,9 @@ dímelo (Knownness.known) → [[Reading(baseform='decir', tags={'vblex', 'imp', 
 ```python
 >>> from streamparser import parse_file
 
->>> lexicalUnits = parse_file(open('~/Downloads/analyzed.txt'))
->>> for lexicalUnit in lexicalUnits:
-        print('%s (%s) → %s' % (lexicalUnit.wordform, lexicalUnit.knownness, lexicalUnit.readings))
+>>> lexical_units = parse_file(open('~/Downloads/analyzed.txt'))
+>>> for lexical_unit in lexical_units:
+        print('%s (%s) → %s' % (lexical_unit.wordform, lexical_unit.knownness, lexical_unit.readings))
 
 Høgre (Knownness.known) → [[Reading(baseform='Høgre', tags={'np'})], [Reading(baseform='høgre', tags={'n', 'nt', 'sp'})], [Reading(baseform='høg', tags={'un', 'sint', 'sp', 'comp', 'adj'})], [Reading(baseform='høgre', tags={'f', 'n', 'ind', 'sg'})], [Reading(baseform='høgre', tags={'f', 'n', 'ind', 'sg'})], [Reading(baseform='høgre', tags={'sg', 'nt', 'ind', 'posi', 'adj'})], [Reading(baseform='høgre', tags={'mf', 'sg', 'ind', 'posi', 'adj'})], [Reading(baseform='høgre', tags={'un', 'ind', 'pl', 'posi', 'adj'})], [Reading(baseform='høgre', tags={'un', 'def', 'sp', 'posi', 'adj'})]]
 kolonne (Knownness.known) → [[Reading(baseform='kolonne', tags={'m', 'n', 'ind', 'sg'})], [Reading(baseform='kolonne', tags={'m', 'n', 'ind', 'sg'})]]
