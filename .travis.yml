@@ -5,8 +5,6 @@ python:
     - "3.5"
     - "3.6"
     - "nightly"
-
-# Travis gives UnicodeDecodeError in pypy3, as if LANG were unset
 #    - "pypy3"
 
 install:
