@@ -199,7 +199,6 @@ def parse(stream, withText=False):
     inSuperblank = False
 
     for char in stream:
-
         if inSuperblank:
             if char == ']':
                 inSuperblank = False
