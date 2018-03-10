@@ -14,6 +14,9 @@ import re
 import sys
 from collections import namedtuple
 
+if False:
+    from typing import Type, List, Tuple, Iterator, Iterable, Generator, Union, Any  # noqa: F401
+
 __author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __copyright__ = "Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
@@ -49,7 +52,7 @@ class genunknown(Knownness):
     symbol = "#"
 
 
-def _symbol_to_knownness(symbol):
+def _symbol_to_knownness(symbol):  # type: (str) -> Type[Knownness]
     return {"*": unknown, "@": biunknown, "#": genunknown}.get(symbol, known)
 
 
@@ -61,15 +64,15 @@ Fields:
 """
 
 
-def subreading_to_string(sub):
-    return sub.baseform+"".join("<"+t+">" for t in sub.tags)
+def subreading_to_string(sub):  # type: (SReading) -> str
+    return sub.baseform + "".join("<" + t + ">" for t in sub.tags)  # type: ignore
 
 
-def reading_to_string(reading):
+def reading_to_string(reading):  # type: (List[SReading]) -> str
     return "+".join(subreading_to_string(sub) for sub in reading)
 
 
-def mainpos(reading, ltr=False):
+def mainpos(reading, ltr=False):  # type: (SReading, bool) -> str
     """Return the first part-of-speech tag of a reading. If there are
     several subreadings, by default give the first tag of the last
     subreading. If ltr=True, give the first tag of the first
@@ -78,16 +81,16 @@ def mainpos(reading, ltr=False):
     information.
     """
     if ltr:
-        return reading[0].tags[0]
+        return reading[0].tags[0]  # type: ignore
     else:
-        return reading[-1].tags[0]
+        return reading[-1].tags[0]  # type: ignore
 
 
-def _parse_tags(tagstr):
+def _parse_tags(tag_str):  # type: (str) -> List[str]
     in_tag = False
     tags = []
     buf = ""
-    stream = (c for c in tagstr)
+    stream = (c for c in tag_str)
     for c in stream:
         if not in_tag and c == "<":
             in_tag = True
@@ -106,7 +109,7 @@ def _parse_tags(tagstr):
     return tags
 
 
-def _parse_subreading(reading):
+def _parse_subreading(reading):  # type: (str) -> List[Tuple[str, str]]
     in_lemma = True
     lemma = ""
     subs = []
@@ -147,9 +150,9 @@ class LexicalUnit:
         knownness (Knownness): The level of knowledge of the lexical unit.
     """
 
-    knownness = known
+    knownness = known  # type: Type[Knownness]
 
-    def __init__(self, lexical_unit):
+    def __init__(self, lexical_unit):  # type: (str) -> None
         self.lexical_unit = lexical_unit
 
         cohort = re.split(r'(?<!\\)/', lexical_unit)
@@ -159,10 +162,10 @@ class LexicalUnit:
         if len(readings) == 1:
             self.knownness = _symbol_to_knownness(readings[0][:1])
 
-        self.readings = []
+        self.readings = []  # type: List[List[SReading]]
         for reading in readings:
             if len(reading) < 1:
-                sys.stderr.write("WARNING: Empty readings for {}".format(self.lexical_unit), file=sys.stderr)
+                sys.stderr.write("WARNING: Empty readings for {}\n".format(self.lexical_unit))
             else:
                 subreadings = []
                 for subreading in _parse_subreading(reading):
@@ -172,12 +175,12 @@ class LexicalUnit:
 
                 self.readings.append(subreadings)
 
-    def __repr__(self):
+    def __repr__(self):  # type: () -> str
         return self.lexical_unit
 
 
 @functools.singledispatch
-def parse(stream, with_text=False):
+def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
     """Generates lexical units from a character stream.
 
     Args:
@@ -232,11 +235,11 @@ def parse(stream, with_text=False):
 
 
 @parse.register(str)
-def _parse_str(str, **kwargs):
+def _parse_str(str, **kwargs):  # type: (str, Any) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
     return parse(iter(str), **kwargs)
 
 
-def parse_file(f, with_text=False):
+def parse_file(f, **kwargs):  # type: (Iterable, Any) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
     """Generates lexical units from a file.
 
     Args:
@@ -246,11 +249,11 @@ def parse_file(f, with_text=False):
         LexicalUnit: The next lexical unit found in the file.
     """
 
-    return parse(itertools.chain.from_iterable(f))
+    return parse(itertools.chain.from_iterable(f), **kwargs)
 
 
 if __name__ == '__main__':
     lexical_units = parse_file(fileinput.input())
 
     for lexical_unit in lexical_units:
-        pprint.pprint(lexical_unit.readings, width=120)
+        pprint.pprint(lexical_unit.readings, width=120)  # type: ignore
