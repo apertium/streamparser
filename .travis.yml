@@ -11,9 +11,12 @@ python:
 # Travis gives UnicodeDecodeError in pypy3, as if LANG were unset
 #    - "pypy3"
 
-script:
-    - ./t/run-tests
+install:
+    - pip3 install flake8
 
+script:
+    - flake8 *.py
+    - ./t/run-tests
 
 notifications:
     irc:
@@ -21,8 +24,8 @@ notifications:
             - secure: "PB6mw8GV3wIZ75WCNjVwBIzXFjSkJWzWSCxNMggJutsNBbDGJfm0KuWDNgYUtyYYwXIaQOHo7wMKfQsUjzDbnzxbJxxH9Vt8fXhT4qW2Bx0dug7YduUHHJCFHuA+5B1o7ak7+WWnwkidQv9XOQr7MD7QAG60DMmLWU3qiPKGyqg="
     on_failure: always
     on_success: never
-# The irc channel is encrypted for goavki/streamparser, so build notifications from forks won't show up on the IRC channel
+
+# The irc channel is encrypted for apertium/streamparser, so build notifications from forks won't show up on the IRC channel
 # Encrypt with:
 # $ gem install --user-install travis
-# $ ~/.gem/ruby/*/bin/travis encrypt -r goavki/streamparser 'chat.freenode.net#apertium'
-
+# $ ~/.gem/ruby/*/bin/travis encrypt -r apertium/streamparser 'chat.freenode.net#apertium'

@@ -6,7 +6,11 @@ Usage: streamparser.py [FILE]
 Consumes input from a file (first argument) or stdin, parsing and pretty printing the readings of lexical units found.
 """
 
-import re, pprint, sys, itertools, fileinput
+import fileinput
+import itertools
+import pprint
+import re
+import sys
 from collections import namedtuple
 
 __author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
@@ -15,6 +19,7 @@ __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
 __license__ = "GPLv3+"
 __status__ = "Production"
 __version__ = "4.0.2"
+
 
 class Knownness:
     __doc__ = """Level of knowledge associated with a lexical unit.
@@ -26,17 +31,26 @@ class Knownness:
 """
     symbol = ""
 
+
 class known(Knownness):
     pass
+
+
 class unknown(Knownness):
     symbol = "*"
+
+
 class biunknown(Knownness):
     symbol = "@"
+
+
 class genunknown(Knownness):
     symbol = "#"
 
+
 def symbolToKnownness(symbol):
     return {"*": unknown, "@": biunknown, "#": genunknown}.get(symbol, known)
+
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
 try:
@@ -49,11 +63,14 @@ except AttributeError:
     # Python 3.2 users have to read the source
     pass
 
+
 def subreadingToString(sub):
     return sub.baseform+"".join("<"+t+">" for t in sub.tags)
 
+
 def readingToString(reading):
     return "+".join(subreadingToString(sub) for sub in reading)
+
 
 def mainpos(reading, ltr=False):
     """Return the first part-of-speech tag of a reading. If there are
@@ -136,6 +153,7 @@ class LexicalUnit:
     """
 
     knownness = known
+
     def __init__(self, lexicalUnit):
         self.lexicalUnit = lexicalUnit
 
@@ -149,7 +167,7 @@ class LexicalUnit:
         self.readings = []
         for reading in readings:
             if len(reading) < 1:
-                print("WARNING: Empty readings for {}".format(self.lexicalUnit), file=sys.stderr)
+                sys.stderr.write("WARNING: Empty readings for {}".format(self.lexicalUnit), file=sys.stderr)
             else:
                 subreadings = []
                 for subreading in parseSubreading(reading):

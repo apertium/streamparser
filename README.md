@@ -1,13 +1,15 @@
-streamparser
-============
+# streamparser
+
 Python library to parse [Apertium stream format](http://wiki.apertium.org/wiki/Apertium_stream_format), generating `LexicalUnit`s.
 
-[![Build Status](https://travis-ci.org/goavki/streamparser.svg)](https://travis-ci.org/goavki/streamparser)
+[![Build Status](https://travis-ci.org/apertium/streamparser.svg)](https://travis-ci.org/apertium/streamparser)
 
-Usage
------
+## Usage
+
 ### As a library
+
 #### With string input
+
 ```python
 >>> from streamparser import parse
 
@@ -22,6 +24,7 @@ dímelo (Knownness.known) → [[Reading(baseform='decir', tags={'vblex', 'imp', 
 ```
 
 #### With file input
+
 ```python
 >>> from streamparser import parse_file
 
@@ -37,7 +40,9 @@ px (Knownness.unknown) → []
 ```
 
 ### From the terminal
+
 #### With standard input
+
 ```bash
 $ bzcat ~/corpora/nnclean2.txt.bz2 | apertium-deshtml | lt-proc -we /usr/share/apertium/apertium-nno/nno.automorf.bin | python3 streamparser.py
 [[Reading(baseform='Høgre', tags={'np'})],
@@ -54,7 +59,8 @@ $ bzcat ~/corpora/nnclean2.txt.bz2 | apertium-deshtml | lt-proc -we /usr/share/a
 ...
 ```
 
-#### With file input
+#### With file input in terminal
+
 ```bash
 $ bzcat ~/corpora/nnclean2.txt.bz2 | apertium-deshtml | lt-proc -we /usr/share/apertium/apertium-nno/nno.automorf.bin > analyzed.txt
 $ python3 streamparser.py analyzed.txt
