@@ -14,7 +14,7 @@ install:
 
 script:
     - flake8 *.py
-    - ./t/run-tests
+    - python3 -m unittest
 
 notifications:
     irc:
