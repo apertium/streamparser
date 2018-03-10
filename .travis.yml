@@ -10,11 +10,14 @@ python:
 #    - "pypy3"
 
 install:
-    - pip3 install flake8
+    - pip3 install flake8 coveralls
 
 script:
     - flake8 *.py
     - python3 -m unittest
+
+after_success:
+    - coveralls
 
 notifications:
     irc:
