@@ -19,10 +19,13 @@ class TestParse(unittest.TestCase):
         self.assertEqual(lexical_unit.knownness, known)
 
     def test_parse_with_text(self):
-        lexical_units_with_blanks = list(parse(self.s, withText=True))
+        lexical_units_with_blanks = list(parse(self.s, with_text=True))
         self.assertEqual(len(lexical_units_with_blanks), 1)
         blank, _lexical_unit = lexical_units_with_blanks[0]
         self.assertEqual(blank, '[\^keep<escapes>\$] \^ \$ \/ \[ \] ')
+
+    def test_parse_file(self):
+        pass
 
 
 if __name__ == '__main__':

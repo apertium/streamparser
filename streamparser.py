@@ -15,7 +15,7 @@ import sys
 from collections import namedtuple
 
 __author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
-__copyright__ = "Copyright 2016--2017, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
+__copyright__ = "Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
 __license__ = "GPLv3+"
 __status__ = "Production"
@@ -49,28 +49,24 @@ class genunknown(Knownness):
     symbol = "#"
 
 
-def symbolToKnownness(symbol):
+def _symbol_to_knownness(symbol):
     return {"*": unknown, "@": biunknown, "#": genunknown}.get(symbol, known)
 
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
-try:
-    SReading.__doc__ = """A single subreading of an analysis of a token.
-    Fields:
-        baseform (str): The base form (lemma, lexical form, citation form) of the reading.
-        tags (list of str): The morphological tags associated with the reading.
+SReading.__doc__ = """A single subreading of an analysis of a token.
+Fields:
+    baseform (str): The base form (lemma, lexical form, citation form) of the reading.
+    tags (list of str): The morphological tags associated with the reading.
 """
-except AttributeError:
-    # Python 3.2 users have to read the source
-    pass
 
 
-def subreadingToString(sub):
+def subreading_to_string(sub):
     return sub.baseform+"".join("<"+t+">" for t in sub.tags)
 
 
-def readingToString(reading):
-    return "+".join(subreadingToString(sub) for sub in reading)
+def reading_to_string(reading):
+    return "+".join(subreading_to_string(sub) for sub in reading)
 
 
 def mainpos(reading, ltr=False):
@@ -80,7 +76,6 @@ def mainpos(reading, ltr=False):
     subreading, see
     http://beta.visl.sdu.dk/cg3/single/#sub-stream-apertium for more
     information.
-
     """
     if ltr:
         return reading[0].tags[0]
@@ -88,14 +83,14 @@ def mainpos(reading, ltr=False):
         return reading[-1].tags[0]
 
 
-def parseTags(tagstr):
-    inTag = False
+def _parse_tags(tagstr):
+    in_tag = False
     tags = []
     buf = ""
     stream = (c for c in tagstr)
     for c in stream:
-        if not inTag and c == "<":
-            inTag = True
+        if not in_tag and c == "<":
+            in_tag = True
             continue
         elif c == "\\":
             buf += c
@@ -103,7 +98,7 @@ def parseTags(tagstr):
         elif c == ">":
             tags.append(buf)
             buf = ""
-            inTag = False
+            in_tag = False
         else:
             buf += c
     if buf != "":
@@ -111,8 +106,8 @@ def parseTags(tagstr):
     return tags
 
 
-def parseSubreading(reading):
-    inLemma = True
+def _parse_subreading(reading):
+    in_lemma = True
     lemma = ""
     subs = []
     buf = ""
@@ -122,20 +117,20 @@ def parseSubreading(reading):
             subs.append((lemma, buf))
             buf = ""
             lemma = ""
-            inLemma = True
+            in_lemma = True
             continue
         elif c == "\\":
             buf += c
             buf += next(stream)
-        elif inLemma and c == "<":
-            inLemma = False
+        elif in_lemma and c == "<":
+            in_lemma = False
             lemma = buf
             buf = ""
             buf += c
         else:
             buf += c
     if buf != "":
-        if inLemma:
+        if in_lemma:
             subs.append((lemma + buf, ""))
         else:
             subs.append((lemma,  buf))
@@ -143,7 +138,6 @@ def parseSubreading(reading):
 
 
 class LexicalUnit:
-
     """A lexical unit consisting of a lemma and its readings.
 
     Attributes:
@@ -155,40 +149,40 @@ class LexicalUnit:
 
     knownness = known
 
-    def __init__(self, lexicalUnit):
-        self.lexicalUnit = lexicalUnit
+    def __init__(self, lexical_unit):
+        self.lexical_unit = lexical_unit
 
-        cohort = re.split(r'(?<!\\)/', lexicalUnit)
+        cohort = re.split(r'(?<!\\)/', lexical_unit)
         self.wordform = cohort[0]
         readings = cohort[1:]
 
         if len(readings) == 1:
-            self.knownness = symbolToKnownness(readings[0][:1])
+            self.knownness = _symbol_to_knownness(readings[0][:1])
 
         self.readings = []
         for reading in readings:
             if len(reading) < 1:
-                sys.stderr.write("WARNING: Empty readings for {}".format(self.lexicalUnit), file=sys.stderr)
+                sys.stderr.write("WARNING: Empty readings for {}".format(self.lexical_unit), file=sys.stderr)
             else:
                 subreadings = []
-                for subreading in parseSubreading(reading):
+                for subreading in _parse_subreading(reading):
                     baseform = subreading[0].lstrip('+')
-                    tags = parseTags(subreading[1])
+                    tags = _parse_tags(subreading[1])
                     subreadings.append(SReading(baseform=baseform, tags=tags))
 
                 self.readings.append(subreadings)
 
     def __repr__(self):
-        return self.lexicalUnit
+        return self.lexical_unit
 
 
 @functools.singledispatch
-def parse(stream, withText=False):
+def parse(stream, with_text=False):
     """Generates lexical units from a character stream.
 
     Args:
         stream (iterable): A character stream containing lexical units, superblanks and other text.
-        withText (bool, optional): A boolean defining whether to output preceding text with each lexical unit.
+        with_text (bool, optional): A boolean defining whether to output preceding text with each lexical unit.
 
     Yields:
         LexicalUnit: The next lexical unit found in the character stream. (if withText is False)
@@ -196,29 +190,29 @@ def parse(stream, withText=False):
     """
 
     buffer = ''
-    textBuffer = ''
-    inLexicalUnit = False
-    inSuperblank = False
+    text_buffer = ''
+    in_lexical_unit = False
+    in_superblank = False
 
     for char in stream:
-        if inSuperblank:
+        if in_superblank:
             if char == ']':
-                inSuperblank = False
-                textBuffer += char
+                in_superblank = False
+                text_buffer += char
             elif char == '\\':
-                textBuffer += char
-                textBuffer += next(stream)
+                text_buffer += char
+                text_buffer += next(stream)
             else:
-                textBuffer += char
-        elif inLexicalUnit:
+                text_buffer += char
+        elif in_lexical_unit:
             if char == '$':
-                if withText:
-                    yield (textBuffer, LexicalUnit(buffer))
+                if with_text:
+                    yield (text_buffer, LexicalUnit(buffer))
                 else:
                     yield LexicalUnit(buffer)
                 buffer = ''
-                textBuffer = ''
-                inLexicalUnit = False
+                text_buffer = ''
+                in_lexical_unit = False
             elif char == '\\':
                 buffer += char
                 buffer += next(stream)
@@ -226,15 +220,15 @@ def parse(stream, withText=False):
                 buffer += char
         else:
             if char == '[':
-                inSuperblank = True
-                textBuffer += char
+                in_superblank = True
+                text_buffer += char
             elif char == '^':
-                inLexicalUnit = True
+                in_lexical_unit = True
             elif char == '\\':
-                textBuffer += char
-                textBuffer += next(stream)
+                text_buffer += char
+                text_buffer += next(stream)
             else:
-                textBuffer += char
+                text_buffer += char
 
 
 @parse.register(str)
@@ -242,7 +236,7 @@ def _parse_str(str, **kwargs):
     return parse(iter(str), **kwargs)
 
 
-def parse_file(f, withText=False):
+def parse_file(f, with_text=False):
     """Generates lexical units from a file.
 
     Args:
@@ -252,11 +246,11 @@ def parse_file(f, withText=False):
         LexicalUnit: The next lexical unit found in the file.
     """
 
-    return parse(itertools.chain.from_iterable(f), withText)
+    return parse(itertools.chain.from_iterable(f))
 
 
 if __name__ == '__main__':
-    lexicalUnits = parse_file(fileinput.input())
+    lexical_units = parse_file(fileinput.input())
 
-    for lexicalUnit in lexicalUnits:
-        pprint.pprint(lexicalUnit.readings, width=120)
+    for lexical_unit in lexical_units:
+        pprint.pprint(lexical_unit.readings, width=120)
