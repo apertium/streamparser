@@ -13,7 +13,6 @@ class Test(unittest.TestCase):
     s3 = '$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$'
     s4 = '^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$'
 
-
     def test_parse(self):
         lexical_units = list(parse(self.s1))
         self.assertEqual(len(lexical_units), 1)
