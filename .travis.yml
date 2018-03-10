@@ -13,6 +13,7 @@ install:
 script:
     - flake8 *.py
     - coverage run -m unittest test
+    - coverage report --fail-under 95
     - mypy streamparser.py --strict
 
 after_success:

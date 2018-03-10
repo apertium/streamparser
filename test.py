@@ -4,7 +4,10 @@
 import unittest
 import tempfile
 
-from streamparser import parse, parse_file, SReading, known, unknown, mainpos
+from streamparser import (
+    parse, parse_file, SReading, known, unknown, mainpos,
+    reading_to_string, subreading_to_string
+)
 
 
 class Test(unittest.TestCase):
@@ -72,6 +75,16 @@ class Test(unittest.TestCase):
         self.assertEqual(len(lexical_units), 1)
         pos = mainpos(lexical_units[0].readings[0], ltr=True)
         self.assertEqual(pos, 'vblex')
+
+    def test_reading_to_string(self):
+        lexical_units = list(parse(self.s4))
+        self.assertEqual(len(lexical_units), 1)
+        self.assertEqual(reading_to_string(lexical_units[0].readings[0]), 'decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>')
+
+    def test_subreading_to_string(self):
+        lexical_units = list(parse(self.s4))
+        self.assertEqual(len(lexical_units), 1)
+        self.assertEqual(subreading_to_string(lexical_units[0].readings[0][0]), 'decir<vblex><imp><p2><sg>')
 
 
 if __name__ == '__main__':
