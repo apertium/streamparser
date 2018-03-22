@@ -1,12 +1,16 @@
-from distutils.core import setup
+from os import path
+from setuptools import setup
+
 import streamparser
 
 setup(
-    name='streamparser',
+    name='apertium-streamparser',
     version=streamparser.__version__,
     license='GPLv3+',
     description='Python library to parse Apertium stream format',
-    keywords='apertium apertium-tools parsing linguistics',
+    long_description=open(path.join(path.abspath(path.dirname(__file__)), 'README.md')).read(),
+    long_description_content_type='text/markdown; charset=UTF-8',
+    keywords='apertium parsing linguistics',
     author='Sushain K. Cherivirala',
     author_email='sushain@skc.name',
     url='https://github.com/apertium/streamparser',
@@ -23,5 +27,6 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Programming Language :: Python :: Implementation :: CPython',
     ],
+    python_requires='>=3',
     py_modules=['streamparser'],
 )
