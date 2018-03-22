@@ -17,7 +17,7 @@ install:
 script:
     - flake8 *.py
     - coverage run --branch -m unittest test
-    - coverage report --fail-under 99
+    - coverage report --fail-under 98
     - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
         mypy streamparser.py --strict;
       fi
