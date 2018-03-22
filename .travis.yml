@@ -9,8 +9,9 @@ python:
 
 install:
     - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
-        travis_retry pip install flake8 coveralls mypy;
+        travis_retry pip install flake8 mypy;
       fi
+    - travis_retry pip install coveralls
 
 script:
     - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
