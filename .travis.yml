@@ -5,26 +5,34 @@ python:
     - "3.5"
     - "3.6"
     - "nightly"
-#    - "pypy3"
+    - "pypy3"
 
 install:
-    - pip3 install flake8 coveralls mypy
+    - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
+        travis_retry pip install flake8 coveralls mypy;
+      fi
 
 script:
-    - flake8 *.py
+    - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
+        flake8 *.py;
+      fi
     - coverage run -m unittest test
     - coverage report --fail-under 95
-    - mypy streamparser.py --strict
+    - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
+        mypy streamparser.py --strict;
+      fi
 
 after_success:
-    - coveralls
+    - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
+        coveralls;
+      fi
 
 notifications:
     irc:
         channels:
             - secure: "PB6mw8GV3wIZ75WCNjVwBIzXFjSkJWzWSCxNMggJutsNBbDGJfm0KuWDNgYUtyYYwXIaQOHo7wMKfQsUjzDbnzxbJxxH9Vt8fXhT4qW2Bx0dug7YduUHHJCFHuA+5B1o7ak7+WWnwkidQv9XOQr7MD7QAG60DMmLWU3qiPKGyqg="
-    on_failure: always
-    on_success: never
+    on_failure: change
+    on_success: change
 
 # The irc channel is encrypted for apertium/streamparser, so build notifications from forks won't show up on the IRC channel
 # Encrypt with:
