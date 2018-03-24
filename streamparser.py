@@ -10,12 +10,12 @@ __all__ = [
     'Knownness', 'known', 'unknown', 'biunknown', 'genunknown', 'LexicalUnit',
     'subreading_to_string', 'reading_to_string', 'mainpos', 'parse', 'parse_file',
 ]
-__author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
-__copyright__ = "Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
-__credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
-__license__ = "GPLv3+"
-__status__ = "Production"
-__version__ = "5.0.0"
+__author__ = 'Sushain K. Cherivirala, Kevin Brubeck Unhammer'
+__copyright__ = 'Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer'
+__credits__ = ['Sushain K. Cherivirala', 'Kevin Brubeck Unhammer']
+__license__ = 'GPLv3+'
+__status__ = 'Production'
+__version__ = '5.0.0'
 
 import fileinput
 import functools
@@ -37,7 +37,7 @@ class Knownness:
         biunknown: Denoted by '@', translation not available.
         genunknown: Denoted by '#', generated form not available.
 """
-    symbol = ""
+    symbol = ''
 
 
 class known(Knownness):  # noqa: N801
@@ -45,19 +45,19 @@ class known(Knownness):  # noqa: N801
 
 
 class unknown(Knownness):  # noqa: N801
-    symbol = "*"
+    symbol = '*'
 
 
 class biunknown(Knownness):  # noqa: N801
-    symbol = "@"
+    symbol = '@'
 
 
 class genunknown(Knownness):  # noqa: N801
-    symbol = "#"
+    symbol = '#'
 
 
 def _symbol_to_knownness(symbol):  # type: (str) -> Type[Knownness]
-    return {"*": unknown, "@": biunknown, "#": genunknown}.get(symbol, known)
+    return {'*': unknown, '@': biunknown, '#': genunknown}.get(symbol, known)
 
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
@@ -69,11 +69,11 @@ Fields:
 
 
 def subreading_to_string(sub):  # type: (SReading) -> str
-    return sub.baseform + "".join("<" + t + ">" for t in sub.tags)  # type: ignore
+    return sub.baseform + ''.join('<' + t + '>' for t in sub.tags)  # type: ignore
 
 
 def reading_to_string(reading):  # type: (List[SReading]) -> str
-    return "+".join(subreading_to_string(sub) for sub in reading)
+    return '+'.join(subreading_to_string(sub) for sub in reading)
 
 
 def mainpos(reading, ltr=False):  # type: (SReading, bool) -> str
@@ -93,52 +93,52 @@ def mainpos(reading, ltr=False):  # type: (SReading, bool) -> str
 def _parse_tags(tag_str):  # type: (str) -> List[str]
     in_tag = False
     tags = []
-    buf = ""
+    buf = ''
     stream = (c for c in tag_str)
     for c in stream:
-        if not in_tag and c == "<":
+        if not in_tag and c == '<':
             in_tag = True
             continue
-        elif c == "\\":
+        elif c == '\\':
             buf += c
             buf += next(stream)
-        elif c == ">":
+        elif c == '>':
             tags.append(buf)
-            buf = ""
+            buf = ''
             in_tag = False
         else:
             buf += c
-    if buf != "":
+    if buf != '':
         tags.append(buf)
     return tags
 
 
 def _parse_subreading(reading):  # type: (str) -> List[Tuple[str, str]]
     in_lemma = True
-    lemma = ""
+    lemma = ''
     subs = []
-    buf = ""
+    buf = ''
     stream = (c for c in reading)
     for c in stream:
-        if c == "+":
+        if c == '+':
             subs.append((lemma, buf))
-            buf = ""
-            lemma = ""
+            buf = ''
+            lemma = ''
             in_lemma = True
             continue
-        elif c == "\\":
+        elif c == '\\':
             buf += c
             buf += next(stream)
-        elif in_lemma and c == "<":
+        elif in_lemma and c == '<':
             in_lemma = False
             lemma = buf
-            buf = ""
+            buf = ''
             buf += c
         else:
             buf += c
-    if buf != "":
+    if buf != '':
         if in_lemma:
-            subs.append((lemma + buf, ""))
+            subs.append((lemma + buf, ''))
         else:
             subs.append((lemma, buf))
     return subs
@@ -169,7 +169,7 @@ class LexicalUnit:
         self.readings = []  # type: List[List[SReading]]
         for reading in readings:
             if len(reading) < 1:
-                sys.stderr.write("WARNING: Empty readings for {}\n".format(self.lexical_unit))
+                sys.stderr.write('WARNING: Empty readings for {}\n'.format(self.lexical_unit))
             else:
                 subreadings = []
                 for subreading in _parse_subreading(reading):
