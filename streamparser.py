@@ -6,6 +6,17 @@ Usage: streamparser.py [FILE]
 Consumes input from a file (first argument) or stdin, parsing and pretty printing the readings of lexical units found.
 """
 
+__all__ = [
+    'Knownness', 'known', 'unknown', 'biunknown', 'genunknown', 'LexicalUnit',
+    'subreading_to_string', 'reading_to_string', 'mainpos', 'parse', 'parse_file',
+]
+__author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
+__copyright__ = "Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
+__credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
+__license__ = "GPLv3+"
+__status__ = "Production"
+__version__ = "5.0.0"
+
 import fileinput
 import functools
 import itertools
@@ -16,13 +27,6 @@ from collections import namedtuple
 
 if False:
     from typing import Type, List, Tuple, Iterator, Iterable, Generator, Union, Any  # noqa: F401
-
-__author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
-__copyright__ = "Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
-__credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer"]
-__license__ = "GPLv3+"
-__status__ = "Production"
-__version__ = "5.0.0"
 
 
 class Knownness:
