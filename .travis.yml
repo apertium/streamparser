@@ -1,14 +1,11 @@
 language: python
-
 cache: pip
-
 python:
     - '3.4'
     - '3.5'
     - '3.6'
     - 'nightly'
     - 'pypy3'
-
 install:
     - travis_retry pip install -r requirements.txt
 script:
@@ -18,10 +15,8 @@ script:
     - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then
         mypy streamparser.py --strict;
       fi
-
 after_success:
     - coveralls
-
 notifications:
     irc:
         channels:

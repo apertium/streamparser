@@ -6,7 +6,7 @@ import streamparser
 setup(
     name='apertium-streamparser',
     version=streamparser.__version__,
-    license='GPLv3+',
+    license=streamparser.__license__,
     description='Python library to parse Apertium stream format',
     long_description=open(path.join(path.abspath(path.dirname(__file__)), 'README.md')).read(),
     long_description_content_type='text/markdown; charset=UTF-8',
@@ -27,6 +27,6 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Programming Language :: Python :: Implementation :: CPython',
     ],
-    python_requires='>=3',
+    python_requires='>=3.4',
     py_modules=['streamparser'],
 )
