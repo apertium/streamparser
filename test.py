@@ -6,7 +6,7 @@ import tempfile
 
 from streamparser import (
     parse, parse_file, SReading, known, unknown, mainpos,
-    reading_to_string, subreading_to_string
+    reading_to_string, subreading_to_string,
 )
 
 
@@ -54,14 +54,14 @@ class Test(unittest.TestCase):
                 [
                     SReading(baseform='decir', tags=['vblex', 'imp', 'p2', 'sg']),
                     SReading(baseform='me', tags=['prn', 'enc', 'p1', 'mf', 'sg']),
-                    SReading(baseform='lo', tags=['prn', 'enc', 'p3', 'nt'])
+                    SReading(baseform='lo', tags=['prn', 'enc', 'p3', 'nt']),
                 ],
                 [
                     SReading(baseform='decir', tags=['vblex', 'imp', 'p2', 'sg']),
                     SReading(baseform='me', tags=['prn', 'enc', 'p1', 'mf', 'sg']),
-                    SReading(baseform='lo', tags=['prn', 'enc', 'p3', 'm', 'sg'])
-                ]
-            ]
+                    SReading(baseform='lo', tags=['prn', 'enc', 'p3', 'm', 'sg']),
+                ],
+            ],
         )
 
     def test_mainpos(self):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# coding=utf-8
 """
 Usage: streamparser.py [FILE]
 
@@ -36,19 +36,19 @@ class Knownness:
     symbol = ""
 
 
-class known(Knownness):
+class known(Knownness):  # noqa: N801
     pass
 
 
-class unknown(Knownness):
+class unknown(Knownness):  # noqa: N801
     symbol = "*"
 
 
-class biunknown(Knownness):
+class biunknown(Knownness):  # noqa: N801
     symbol = "@"
 
 
-class genunknown(Knownness):
+class genunknown(Knownness):  # noqa: N801
     symbol = "#"
 
 
@@ -136,7 +136,7 @@ def _parse_subreading(reading):  # type: (str) -> List[Tuple[str, str]]
         if in_lemma:
             subs.append((lemma + buf, ""))
         else:
-            subs.append((lemma,  buf))
+            subs.append((lemma, buf))
     return subs
 
 
