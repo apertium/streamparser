@@ -256,7 +256,7 @@ def parse_file(f, **kwargs):  # type: (Iterable, Any) -> Iterator[Union[Tuple[st
     return parse(itertools.chain.from_iterable(f), **kwargs)
 
 
-def main():
+def main():  # type: () -> None
     lexical_units = parse_file(fileinput.input())
 
     for lexical_unit in lexical_units:
