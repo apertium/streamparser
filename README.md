@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/apertium/streamparser.svg)](https://travis-ci.org/apertium/streamparser)
 [![Coverage Status](https://coveralls.io/repos/github/apertium/streamparser/badge.svg?branch=master)](https://coveralls.io/github/apertium/streamparser?branch=master)
+[![PyPI](https://img.shields.io/pypi/v/apertium-streamparser.svg)](https://pypi.org/project/apertium-streamparser/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/apertium-streamparser.svg)]((https://pypi.org/project/apertium-streamparser/))
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/apertium-streamparser.svg)]((https://pypi.org/project/apertium-streamparser/))
 
 Python library to parse [Apertium stream format](http://wiki.apertium.org/wiki/Apertium_stream_format), generating `LexicalUnit`s.
 
