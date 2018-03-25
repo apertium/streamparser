@@ -15,7 +15,7 @@ __copyright__ = 'Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unh
 __credits__ = ['Sushain K. Cherivirala', 'Kevin Brubeck Unhammer']
 __license__ = 'GPLv3+'
 __status__ = 'Production'
-__version__ = '5.0.0'
+__version__ = '5.0.1'
 
 import fileinput
 import functools
@@ -256,8 +256,12 @@ def parse_file(f, **kwargs):  # type: (Iterable, Any) -> Iterator[Union[Tuple[st
     return parse(itertools.chain.from_iterable(f), **kwargs)
 
 
-if __name__ == '__main__':
+def main():
     lexical_units = parse_file(fileinput.input())
 
     for lexical_unit in lexical_units:
         pprint.pprint(lexical_unit.readings, width=120)  # type: ignore
+
+
+if __name__ == '__main__':
+    main()

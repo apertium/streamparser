@@ -28,5 +28,8 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
     ],
     python_requires='>=3.4',
+    entry_points={
+        'console_scripts': ['apertium-streamparser=streamparser:main'],
+    },
     py_modules=['streamparser'],
 )

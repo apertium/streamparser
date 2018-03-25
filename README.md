@@ -1,9 +1,20 @@
-# streamparser
+# Apertium Streamparser
 
 [![Build Status](https://travis-ci.org/apertium/streamparser.svg)](https://travis-ci.org/apertium/streamparser)
 [![Coverage Status](https://coveralls.io/repos/github/apertium/streamparser/badge.svg?branch=master)](https://coveralls.io/github/apertium/streamparser?branch=master)
 
 Python library to parse [Apertium stream format](http://wiki.apertium.org/wiki/Apertium_stream_format), generating `LexicalUnit`s.
+
+## Installation
+
+Streamparser is available through [PyPi](https://pypi.org/project/apertium-streamparser/):
+
+    $ pip install apertium-streamparser
+    $ apertium-streamparser
+    $^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$
+    [[SReading(baseform='vino', tags=['n', 'm', 'sg'])], [SReading(baseform='venir', tags=['vblex', 'ifi', 'p3', 'sg'])]]
+
+Installation through PyPi will also install the `streamparser` module.
 
 ## Usage
 
