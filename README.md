@@ -6,11 +6,11 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/apertium-streamparser.svg)]((https://pypi.org/project/apertium-streamparser/))
 [![PyPI - Implementation](https://img.shields.io/pypi/implementation/apertium-streamparser.svg)]((https://pypi.org/project/apertium-streamparser/))
 
-Python library to parse [Apertium stream format](http://wiki.apertium.org/wiki/Apertium_stream_format), generating `LexicalUnit`s.
+Python 3 library to parse [Apertium stream format][1], generating `LexicalUnit`s.
 
 ## Installation
 
-Streamparser is available through [PyPi](https://pypi.org/project/apertium-streamparser/):
+Streamparser is available through [PyPi][2]:
 
     $ pip install apertium-streamparser
     $ apertium-streamparser
@@ -90,3 +90,12 @@ $ python3 streamparser.py analyzed.txt
  [SReading(baseform='kolonne', tags=['n', 'm', 'ind', 'sg'])]]
 ...
 ```
+
+## Contributing
+
+Streamparser uses [TravisCI][3] for continous integration. Locally, use
+`make test` to run the same checks it does. Use `pip install -r requirements.txt`
+to install the requirements required for development, e.g. linters.
+
+[1]: http://wiki.apertium.org/wiki/Apertium_stream_format
+[2]: https://pypi.org/project/apertium-streamparser/

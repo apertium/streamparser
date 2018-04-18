@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
-import unittest
 import tempfile
+import unittest
 
 from streamparser import (
     parse, parse_file, SReading, known, unknown, mainpos,
