@@ -99,3 +99,4 @@ to install the requirements required for development, e.g. linters.
 
 [1]: http://wiki.apertium.org/wiki/Apertium_stream_format
 [2]: https://pypi.org/project/apertium-streamparser/
+[3]: https://travis-ci.org/apertium/streamparser
