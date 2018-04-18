@@ -12,7 +12,7 @@ test-release:
 test:
 	flake8 *.py --verbose
 	coverage run --branch -m unittest test --verbose
-	coverage report --fail-under 95
+	coverage report --fail-under 95 --show-missing
 	if [[ "$(TRAVIS_PYTHON_VERSION)" != 'pypy'* ]]; then \
 		set -e; \
 		mypy streamparser.py --strict --any-exprs-report .mypy_coverage; \
