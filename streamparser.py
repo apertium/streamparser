@@ -26,7 +26,7 @@ import sys
 from collections import namedtuple
 
 if False:
-    from typing import Type, List, Tuple, Iterator, Iterable, Generator, Union, Any  # noqa: F401
+    from typing import Type, List, Tuple, Iterator, Iterable, Generator, Union  # noqa: F401
 
 
 class Knownness:
@@ -239,11 +239,11 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
 
 
 @parse.register(str)
-def _parse_str(str, **kwargs):  # type: (str, Any) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
+def _parse_str(str, **kwargs):  # type: (str, dict) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
     return parse(iter(str), **kwargs)
 
 
-def parse_file(f, **kwargs):  # type: (Iterable, Any) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
+def parse_file(f, **kwargs):  # type: (Iterable, dict) -> Iterator[Union[Tuple[str, LexicalUnit], LexicalUnit]]
     """Generates lexical units from a file.
 
     Args:

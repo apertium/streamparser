@@ -18,7 +18,7 @@ test:
 		mypy streamparser.py --strict --any-exprs-report .mypy_coverage; \
 		cat .mypy_coverage/any-exprs.txt; \
 		coverage=$(shell tail -1 .mypy_coverage/any-exprs.txt | grep -Eo '[0-9\.]+%' | rev | tail -c +2 | rev); \
-		if [[ $$coverage < 95 ]]; then \
+		if [[ $$coverage < 96 ]]; then \
 			echo 'mypy coverage too low'; \
 			exit 1; \
 		fi \
