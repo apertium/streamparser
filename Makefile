@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 TRAVIS_PYTHON_VERSION ?= $(shell python3 --version | cut -d ' ' -f 2)
 
 dist:
