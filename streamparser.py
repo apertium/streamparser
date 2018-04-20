@@ -15,14 +15,14 @@ __copyright__ = 'Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unh
 __credits__ = ['Sushain K. Cherivirala', 'Kevin Brubeck Unhammer']
 __license__ = 'GPLv3+'
 __status__ = 'Production'
-__version__ = '5.0.1'
+__version__ = '5.0.2'
 
 import fileinput
 import functools
 import itertools
 import pprint
 import re
-import sys
+import warnings
 from collections import namedtuple
 
 if False:
@@ -169,7 +169,7 @@ class LexicalUnit:
         self.readings = []  # type: List[List[SReading]]
         for reading in readings:
             if len(reading) < 1:
-                sys.stderr.write('WARNING: Empty readings for {}\n'.format(self.lexical_unit))
+                warnings.warn('Empty readings for {}'.format(self.lexical_unit), RuntimeWarning)
             else:
                 subreadings = []
                 for subreading in _parse_subreading(reading):
