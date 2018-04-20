@@ -3,6 +3,7 @@
 
 import tempfile
 import unittest
+import warnings
 
 from streamparser import (
     parse, parse_file, SReading, known, unknown, mainpos,
@@ -85,6 +86,14 @@ class Test(unittest.TestCase):
         lexical_units = list(parse(self.s4))
         self.assertEqual(len(lexical_units), 1)
         self.assertEqual(subreading_to_string(lexical_units[0].readings[0][0]), 'decir<vblex><imp><p2><sg>')
+
+    def test_empty_readings(self):
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            warnings.simplefilter('always')
+            next(parse('^foo/$'))
+            self.assertEqual(len(caught_warnings), 1)
+            self.assertTrue(issubclass(caught_warnings[0].category, RuntimeWarning))
+            self.assertIn('Empty readings', str(caught_warnings[0].message))
 
 
 if __name__ == '__main__':
