@@ -7,7 +7,7 @@ Consumes input from a file (first argument) or stdin, parsing and pretty printin
 """
 
 __all__ = [
-    'Knownness', 'known', 'unknown', 'biunknown', 'genunknown', 'LexicalUnit',
+    'Knownness', 'known', 'unknown', 'biunknown', 'genunknown', 'LexicalUnit', 'SReading',
     'subreading_to_string', 'reading_to_string', 'mainpos', 'parse', 'parse_file',
 ]
 __author__ = 'Sushain K. Cherivirala, Kevin Brubeck Unhammer'
@@ -30,13 +30,9 @@ if False:
 
 
 class Knownness:
-    __doc__ = """Level of knowledge associated with a lexical unit.
-    Values:
-        known
-        unknown: Denoted by '*', analysis not available.
-        biunknown: Denoted by '@', translation not available.
-        genunknown: Denoted by '#', generated form not available.
-"""
+    """Level of knowledge associated with a :class:`LexicalUnit`. \n
+       Values: :class:`known`, :class:`unknown`, :class:`biunknown`, :class:`genunknown`
+    """
     symbol = ''
 
 
@@ -45,14 +41,17 @@ class known(Knownness):  # noqa: N801
 
 
 class unknown(Knownness):  # noqa: N801
+    """Denoted by ``*``, analysis not available."""
     symbol = '*'
 
 
 class biunknown(Knownness):  # noqa: N801
+    """Denoted by ``@``, translation not available."""
     symbol = '@'
 
 
 class genunknown(Knownness):  # noqa: N801
+    """Denoted by ``#``, generated form not available."""
     symbol = '#'
 
 
@@ -62,9 +61,10 @@ def _symbol_to_knownness(symbol):  # type: (str) -> Type[Knownness]
 
 SReading = namedtuple('SReading', ['baseform', 'tags'])
 SReading.__doc__ = """A single subreading of an analysis of a token.
-Fields:
+
+Attributes:
     baseform (str): The base form (lemma, lexical form, citation form) of the reading.
-    tags (list of str): The morphological tags associated with the reading.
+    tags (List[str]): The morphological tags associated with the reading.
 """
 
 
@@ -148,13 +148,11 @@ class LexicalUnit:
     """A lexical unit consisting of a lemma and its readings.
 
     Attributes:
-        lexicalUnit (str): The lexical unit in Apertium stream format.
+        lexical_unit (str): The lexical unit in Apertium stream format.
         wordform (str): The word form (surface form) of the lexical unit.
-        readings (list of list of SReading): The analyses of the lexical unit with sublists containing all subreadings.
-        knownness (Knownness): The level of knowledge of the lexical unit.
+        readings (List[List[:class:`SReading`]]): The analyses of the lexical unit with sublists containing all subreadings.
+        knownness (:class:`Knownness`): The level of knowledge of the lexical unit.
     """
-
-    knownness = known  # type: Type[Knownness]
 
     def __init__(self, lexical_unit):  # type: (str) -> None
         self.lexical_unit = lexical_unit
@@ -165,6 +163,8 @@ class LexicalUnit:
 
         if len(readings) == 1:
             self.knownness = _symbol_to_knownness(readings[0][:1])
+        else:
+            self.knownness = known
 
         self.readings = []  # type: List[List[SReading]]
         for reading in readings:
@@ -188,12 +188,13 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
     """Generates lexical units from a character stream.
 
     Args:
-        stream (iterable): A character stream containing lexical units, superblanks and other text.
-        with_text (bool, optional): A boolean defining whether to output preceding text with each lexical unit.
+        stream (Iterator[str]): A character stream containing lexical units, superblanks and other text.
+        with_text (Optional[bool]): A boolean defining whether to output preceding text with each lexical unit.
 
     Yields:
-        LexicalUnit: The next lexical unit found in the character stream. (if withText is False)
-        (str, LexicalUnit): The next lexical unit found in the character stream and the the text that seperated it from the prior unit in a tuple. (if withText is True)
+        :class:`LexicalUnit`: The next lexical unit found in the character stream. (if `with_text` is False) \n
+        *(str, LexicalUnit)* - The next lexical unit found in the character stream and the the text that seperated it from the
+        prior unit in a tuple. (if with_text is True)
     """
 
     buffer = ''
@@ -250,7 +251,7 @@ def parse_file(f, **kwargs):  # type: (Iterable, dict) -> Iterator[Union[Tuple[s
         f (file): A file containing lexical units, superblanks and other text.
 
     Yields:
-        LexicalUnit: The next lexical unit found in the file.
+        :class:`LexicalUnit`: The next lexical unit found in the file.
     """
 
     return parse(itertools.chain.from_iterable(f), **kwargs)

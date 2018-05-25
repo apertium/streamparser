@@ -12,6 +12,9 @@ script:
     - make test
 after_success:
     - coveralls
+matrix:
+    allow_failures:
+        - python: nightly
 notifications:
     irc:
         channels:
