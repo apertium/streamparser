@@ -3,13 +3,13 @@ import sys
 
 sys.path.insert(0, os.path.abspath('..'))
 
+import streamparser  # noqa: E402
 
 project = 'Apertium Streamparser'
-copyright = '2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer'
-author = 'Sushain K. Cherivirala, Kevin Brubeck Unhammer'
+copyright = streamparser.__copyright__
+author = streamparser.__author__
 
-version = '5.0.2'
-release = '5.0.2'
+version = release = streamparser.__version__
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -22,7 +22,6 @@ templates_path = ['_templates']
 
 source_suffix = ['.rst']
 
-# The master toctree document.
 master_doc = 'index'
 
 language = None
@@ -32,17 +31,9 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 pygments_style = 'sphinx'
 
 html_theme = 'alabaster'
-html_theme_options = {
-    'github_user': 'apertium',
-    'github_repo': 'streamparser',
-    'travis_button': True,
-    'github_button': True,
-}
 html_static_path = ['_static']
 htmlhelp_basename = 'ApertiumStreamparserdoc'
 
-
-latex_elements = {}
 
 latex_documents = [
     (master_doc, 'ApertiumStreamparser.tex', 'Apertium Streamparser Documentation',
