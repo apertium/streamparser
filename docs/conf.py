@@ -34,10 +34,9 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 htmlhelp_basename = 'ApertiumStreamparserdoc'
 
-
 latex_documents = [
     (master_doc, 'ApertiumStreamparser.tex', 'Apertium Streamparser Documentation',
-     'Sushain K. Cherivirala, Kevin Brubeck Unhammer', 'manual'),
+     streamparser.__author__, 'manual'),
 ]
 
 man_pages = [
