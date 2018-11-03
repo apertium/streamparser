@@ -7,7 +7,8 @@ python:
     - 'nightly'
     - 'pypy3'
 install:
-    - travis_retry pip install -r requirements.txt
+    - pip install pipenv
+    - travis_retry pipenv install --dev --system
 script:
     - make test
 after_success:

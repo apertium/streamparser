@@ -16,7 +16,7 @@ from streamparser import (
 
 
 class Test(unittest.TestCase):
-    s1 = '[\^keep<escapes>\$] \^ \$ \/ \[ \] ^x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag><#1-\>2>$'
+    s1 = r'[\^keep<escapes>\$] \^ \$ \/ \[ \] ^x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag><#1-\>2>$'
     s2 = '^hypercholesterolemia/*hypercholesterolemia$'
     s3 = '$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$'
     s4 = '^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$'
@@ -25,17 +25,17 @@ class Test(unittest.TestCase):
         lexical_units = list(parse(self.s1))
         self.assertEqual(len(lexical_units), 1)
         lexical_unit = lexical_units[0]
-        self.assertEqual(str(lexical_unit), 'x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag><#1-\>2>')
+        self.assertEqual(str(lexical_unit), r'x\/y\^\$\<z\>å/A\$\^B<tag><tag2>/A\/S<tag><#1-\>2>')
         readings = lexical_unit.readings
         self.assertListEqual(readings, [[SReading(baseform='A\\$\\^B', tags=['tag', 'tag2'])], [SReading(baseform='A\\/S', tags=['tag', '#1-\\>2'])]])
-        self.assertEqual(lexical_unit.wordform, 'x\/y\^\$\<z\>å')
+        self.assertEqual(lexical_unit.wordform, r'x\/y\^\$\<z\>å')
         self.assertEqual(lexical_unit.knownness, known)
 
     def test_parse_with_text(self):
         lexical_units_with_blanks = list(parse(self.s1, with_text=True))
         self.assertEqual(len(lexical_units_with_blanks), 1)
         blank, _lexical_unit = lexical_units_with_blanks[0]
-        self.assertEqual(blank, '[\^keep<escapes>\$] \^ \$ \/ \[ \] ')
+        self.assertEqual(blank, r'[\^keep<escapes>\$] \^ \$ \/ \[ \] ')
 
     def test_parse_unknown(self):
         lexical_units = list(parse(self.s2))
