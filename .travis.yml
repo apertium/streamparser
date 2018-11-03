@@ -8,7 +8,7 @@ python:
     - 'pypy3'
 install:
     - pip install pipenv
-    - travis_retry pipenv install --dev --system --ignore-pipfile
+    - travis_retry pipenv install --dev --system
 script:
     - make test
 after_success:
