@@ -13,3 +13,4 @@ coverage = "*"
 coveralls = "*"
 Sphinx = "*"
 mypy = { version = "*", implementation_name = "!= 'pypy'" }
+typed-ast = { version = "*", implementation_name = "!= 'pypy'" }
