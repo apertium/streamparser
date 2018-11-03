@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+flake8 = "*"
+flake8-commas = "*"
+flake8-polyfill = "*"
+flake8-quotes = "*"
+pep8-naming = "*"
+coverage = "*"
+coveralls = "*"
+Sphinx = "*"
+mypy = { version = "*", implementation_name = "!= 'pypy'" }

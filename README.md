@@ -95,7 +95,7 @@ $ python3 streamparser.py analyzed.txt
 ## Contributing
 
 Streamparser uses [TravisCI][3] for continous integration. Locally, use
-`make test` to run the same checks it does. Use `pip install -r requirements.txt`
+`make test` to run the same checks it does. Use `pipenv install --dev`
 to install the requirements required for development, e.g. linters.
 
 [1]: http://wiki.apertium.org/wiki/Apertium_stream_format
