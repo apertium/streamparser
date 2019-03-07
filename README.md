@@ -1,6 +1,6 @@
 # Apertium Streamparser
 
-[![Build Status](https://travis-ci.org/apertium/streamparser.svg)](https://travis-ci.org/apertium/streamparser)
+[![Build Status](https://travis-ci.org/apertium/streamparser.svg?branch=master)](https://travis-ci.org/apertium/streamparser)
 [![Coverage Status](https://coveralls.io/repos/github/apertium/streamparser/badge.svg?branch=master)](https://coveralls.io/github/apertium/streamparser?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/apertium-streampaser/badge/?version=latest)](https://apertium-streampaser.readthedocs.io/en/latest/?badge=latest)
 [![PyPI](https://img.shields.io/pypi/v/apertium-streamparser.svg)](https://pypi.org/project/apertium-streamparser/)
