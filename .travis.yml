@@ -7,7 +7,7 @@ python:
     - 'nightly'
     - 'pypy3'
 install:
-    - pip install pipenv
+    - pip install pipenv==2018.10.13 # Avoid https://github.com/pypa/pipenv/issues/3313
     - travis_retry pipenv install --dev --system
 script:
     - make test
