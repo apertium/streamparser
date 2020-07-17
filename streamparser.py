@@ -150,6 +150,7 @@ class LexicalUnit:
     Attributes:
         lexical_unit (str): The lexical unit in Apertium stream format.
         wordform (str): The word form (surface form) of the lexical unit.
+        wordbound_blank (str): The wordbound blank of the lexical unit.
         readings (List[List[:class:`SReading`]]): The analyses of the lexical unit with sublists containing all subreadings.
         knownness (:class:`Knownness`): The level of knowledge of the lexical unit.
     """
@@ -158,7 +159,14 @@ class LexicalUnit:
         self.lexical_unit = lexical_unit
 
         cohort = re.split(r'(?<!\\)/', lexical_unit)
-        self.wordform = cohort[0]
+
+        if("]]^" in cohort[0]):
+            split_form = cohort[0].split("]]^")
+            self.wordbound_blank = split_form[0]
+            self.wordform = split_form[1]
+        else:
+            self.wordform = cohort[0]
+
         readings = cohort[1:]
 
         if len(readings) == 1:
@@ -228,8 +236,21 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
                 buffer += char
         else:
             if char == '[':
-                in_superblank = True
-                text_buffer += char
+                next_char = next(stream)
+                if next_char == '[':
+                    in_lexical_unit = True
+                else:
+                    in_superblank = True
+                    text_buffer += char
+                    if next_char == ']':
+                        in_superblank = False
+                        text_buffer += next_char
+                    elif char == '\\':
+                        text_buffer += next_char
+                        text_buffer += next(stream)
+                    else:
+                        text_buffer += next_char
+                
             elif char == '^':
                 in_lexical_unit = True
             elif char == '\\':
@@ -266,3 +287,5 @@ def main():  # type: () -> None
 
 if __name__ == '__main__':
     main()
+
+
