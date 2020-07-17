@@ -165,6 +165,7 @@ class LexicalUnit:
             self.wordbound_blank = split_form[0] + "]]"
             self.wordform = split_form[1]
         else:
+            self.wordbound_blank = ""
             self.wordform = cohort[0]
 
         readings = cohort[1:]
