@@ -20,6 +20,7 @@ class Test(unittest.TestCase):
     s2 = '^hypercholesterolemia/*hypercholesterolemia$'
     s3 = '$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$'
     s4 = '^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$'
+    s5 = '[] [[t:b:123456]]^My/My<det><pos><sp>$ ^test/testlem<tags1><tags2>$ [\[] [\]blank] [[t:i:12asda; t:p:1abc76]]^name/name<n><sg>/name<vblex><inf>/name<vblex><pres>$'
 
     def test_parse(self):
         lexical_units = list(parse(self.s1))
@@ -106,6 +107,34 @@ class Test(unittest.TestCase):
             self.assertEqual(len(caught_warnings), 1)
             self.assertTrue(issubclass(caught_warnings[0].category, RuntimeWarning))
             self.assertIn('Empty readings', str(caught_warnings[0].message))
+            
+    def test_wordbound_blanks(self):
+        lexical_units = list(parse(self.s5))
+        self.assertEqual(len(lexical_units), 3)
+        self.assertListEqual(
+            lexical_units[2].readings,
+            [
+                [SReading(baseform='name', tags=['n', 'sg'])],
+                [SReading(baseform='name', tags=['vblex', 'inf'])],
+                [SReading(baseform='name', tags=['vblex', 'pres'])]
+            ]
+        )
+        self.assertEqual(lexical_units[0].wordform, "My")
+        self.assertEqual(lexical_units[0].wordbound_blank, "[[t:b:123456]]")
+        self.assertEqual(lexical_units[1].wordform, "test")
+        self.assertEqual(lexical_units[1].wordbound_blank, "")
+        self.assertEqual(lexical_units[2].wordform, "name")
+        self.assertEqual(lexical_units[2].wordbound_blank, "[[t:i:12asda; t:p:1abc76]]")
+        
+    def test_blanks_with_wordbound_blanks(self):
+        lexical_units_with_blanks = list(parse(self.s5, with_text=True))
+        self.assertEqual(len(lexical_units_with_blanks), 3)
+        blank, _lexical_unit = lexical_units_with_blanks[0]
+        self.assertEqual(blank, r'[] ')
+        blank, _lexical_unit = lexical_units_with_blanks[1]
+        self.assertEqual(blank, r' ')
+        blank, _lexical_unit = lexical_units_with_blanks[2]
+        self.assertEqual(blank, r' [\[] [\]blank] ')
 
 
 if __name__ == '__main__':
