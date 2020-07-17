@@ -162,7 +162,7 @@ class LexicalUnit:
 
         if("]]^" in cohort[0]):
             split_form = cohort[0].split("]]^")
-            self.wordbound_blank = split_form[0]
+            self.wordbound_blank = split_form[0] + "]]"
             self.wordform = split_form[1]
         else:
             self.wordform = cohort[0]
@@ -238,6 +238,7 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
             if char == '[':
                 next_char = next(stream)
                 if next_char == '[':
+                    buffer += "[[";
                     in_lexical_unit = True
                 else:
                     in_superblank = True
