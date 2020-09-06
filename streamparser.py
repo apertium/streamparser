@@ -246,7 +246,7 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
                     if next_char == ']':
                         in_superblank = False
                         text_buffer += next_char
-                    elif char == '\\':
+                    elif next_char == '\\':
                         text_buffer += next_char
                         text_buffer += next(stream)
                     else:
