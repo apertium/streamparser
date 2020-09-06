@@ -107,7 +107,7 @@ class Test(unittest.TestCase):
             self.assertEqual(len(caught_warnings), 1)
             self.assertTrue(issubclass(caught_warnings[0].category, RuntimeWarning))
             self.assertIn('Empty readings', str(caught_warnings[0].message))
-            
+
     def test_wordbound_blanks(self):
         lexical_units = list(parse(self.s5))
         self.assertEqual(len(lexical_units), 3)
@@ -116,16 +116,16 @@ class Test(unittest.TestCase):
             [
                 [SReading(baseform='name', tags=['n', 'sg'])],
                 [SReading(baseform='name', tags=['vblex', 'inf'])],
-                [SReading(baseform='name', tags=['vblex', 'pres'])]
-            ]
+                [SReading(baseform='name', tags=['vblex', 'pres'])],
+            ],
         )
-        self.assertEqual(lexical_units[0].wordform, "My")
-        self.assertEqual(lexical_units[0].wordbound_blank, "[[t:b:123456]]")
-        self.assertEqual(lexical_units[1].wordform, "test")
-        self.assertEqual(lexical_units[1].wordbound_blank, "")
-        self.assertEqual(lexical_units[2].wordform, "name")
-        self.assertEqual(lexical_units[2].wordbound_blank, "[[t:i:12asda; t:p:1abc76]]")
-        
+        self.assertEqual(lexical_units[0].wordform, 'My')
+        self.assertEqual(lexical_units[0].wordbound_blank, '[[t:b:123456]]')
+        self.assertEqual(lexical_units[1].wordform, 'test')
+        self.assertEqual(lexical_units[1].wordbound_blank, '')
+        self.assertEqual(lexical_units[2].wordform, 'name')
+        self.assertEqual(lexical_units[2].wordbound_blank, '[[t:i:12asda; t:p:1abc76]]')
+
     def test_blanks_with_wordbound_blanks(self):
         lexical_units_with_blanks = list(parse(self.s5, with_text=True))
         self.assertEqual(len(lexical_units_with_blanks), 3)

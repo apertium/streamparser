@@ -160,12 +160,11 @@ class LexicalUnit:
 
         cohort = re.split(r'(?<!\\)/', lexical_unit)
 
-        if "]]^" in cohort[0]:
-            split_form = cohort[0].split("]]^")
-            self.wordbound_blank = split_form[0] + "]]"
-            self.wordform = split_form[1]
+        if ']]^' in cohort[0]:
+            self.wordbound_blank, self.wordform = cohort[0].split(']]^', 1)
+            self.wordbound_blank += ']]'
         else:
-            self.wordbound_blank = ""
+            self.wordbound_blank = ''
             self.wordform = cohort[0]
 
         readings = cohort[1:]
@@ -239,7 +238,7 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
             if char == '[':
                 next_char = next(stream)
                 if next_char == '[':
-                    buffer += "[[";
+                    buffer += '[['
                     in_lexical_unit = True
                 else:
                     in_superblank = True
@@ -252,7 +251,7 @@ def parse(stream, with_text=False):  # type: (Iterator[str], bool) -> Iterator[U
                         text_buffer += next(stream)
                     else:
                         text_buffer += next_char
-                
+
             elif char == '^':
                 in_lexical_unit = True
             elif char == '\\':
@@ -289,4 +288,3 @@ def main():  # type: () -> None
 
 if __name__ == '__main__':
     main()
-
