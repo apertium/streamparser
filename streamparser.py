@@ -160,7 +160,7 @@ class LexicalUnit:
 
         cohort = re.split(r'(?<!\\)/', lexical_unit)
 
-        if("]]^" in cohort[0]):
+        if "]]^" in cohort[0]:
             split_form = cohort[0].split("]]^")
             self.wordbound_blank = split_form[0] + "]]"
             self.wordform = split_form[1]
@@ -289,5 +289,4 @@ def main():  # type: () -> None
 
 if __name__ == '__main__':
     main()
-
 
