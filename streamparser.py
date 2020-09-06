@@ -164,7 +164,7 @@ class LexicalUnit:
             self.wordbound_blank, self.wordform = cohort[0].split(']]^', 1)
             self.wordbound_blank += ']]'
         else:
-            self.wordbound_blank = ''
+            self.wordbound_blank = None
             self.wordform = cohort[0]
 
         readings = cohort[1:]
