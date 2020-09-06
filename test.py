@@ -122,7 +122,7 @@ class Test(unittest.TestCase):
         self.assertEqual(lexical_units[0].wordform, 'My')
         self.assertEqual(lexical_units[0].wordbound_blank, '[[t:b:123456]]')
         self.assertEqual(lexical_units[1].wordform, 'test')
-        self.assertEqual(lexical_units[1].wordbound_blank, None)
+        self.assertEqual(lexical_units[1].wordbound_blank, '')
         self.assertEqual(lexical_units[2].wordform, 'name')
         self.assertEqual(lexical_units[2].wordbound_blank, '[[t:i:12asda; t:p:1abc76]]')
 
