@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
     s2 = '^hypercholesterolemia/*hypercholesterolemia$'
     s3 = '$^vino/vino<n><m><sg>/venir<vblex><ifi><p3><sg>$'
     s4 = '^dímelo/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><nt>/decir<vblex><imp><p2><sg>+me<prn><enc><p1><mf><sg>+lo<prn><enc><p3><m><sg>$'
-    s5 = '[] [[t:b:123456]]^My/My<det><pos><sp>$ ^test/testlem<tags1><tags2>$ [\[] [\]blank] [[t:i:12asda; t:p:1abc76]]^name/name<n><sg>/name<vblex><inf>/name<vblex><pres>$'
+    s5 = r'[] [[t:b:123456]]^My/My<det><pos><sp>$ ^test/testlem<tags1><tags2>$ [\[] [\]blank] [[t:i:12asda; t:p:1abc76]]^name/name<n><sg>/name<vblex><inf>/name<vblex><pres>$'
 
     def test_parse(self):
         lexical_units = list(parse(self.s1))
