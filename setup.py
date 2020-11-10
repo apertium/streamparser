@@ -32,5 +32,8 @@ setup(
     entry_points={
         'console_scripts': ['apertium-streamparser=streamparser:main'],
     },
+    package_data={
+        'streamparser': ['py.typed'],
+    },
     py_modules=['streamparser'],
 )
