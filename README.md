@@ -98,6 +98,6 @@ Streamparser uses [TravisCI][3] for continous integration. Locally, use
 `make test` to run the same checks it does. Use `pipenv install --dev`
 to install the requirements required for development, e.g. linters.
 
-[1]: http://wiki.apertium.org/wiki/Apertium_stream_format
+[1]: https://wiki.apertium.org/wiki/Apertium_stream_format
 [2]: https://pypi.org/project/apertium-streamparser/
 [3]: https://travis-ci.org/apertium/streamparser

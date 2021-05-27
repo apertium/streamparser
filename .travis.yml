@@ -19,11 +19,11 @@ matrix:
 notifications:
     irc:
         channels:
-            - secure: "PB6mw8GV3wIZ75WCNjVwBIzXFjSkJWzWSCxNMggJutsNBbDGJfm0KuWDNgYUtyYYwXIaQOHo7wMKfQsUjzDbnzxbJxxH9Vt8fXhT4qW2Bx0dug7YduUHHJCFHuA+5B1o7ak7+WWnwkidQv9XOQr7MD7QAG60DMmLWU3qiPKGyqg="
+            - secure: "b3VwfrTnaS8x6zMY9uYl9UcRk80FGTlfHHT2/44IGG670OLeD4N4sRniVwj6jooV1hylhADvPgKGFtH1VK+Fnb1c25dmnscmyeM6/A4KgJeqh5kuEPBxkuUJiczrVICvggvA3QtNETJKj2xavYFbwELiOttqk2NOSvOiEbP9B98="
     on_failure: change
     on_success: change
 
 # The irc channel is encrypted for apertium/streamparser, so build notifications from forks won't show up on the IRC channel
 # Encrypt with:
 # $ gem install --user-install travis
-# $ ~/.gem/ruby/*/bin/travis encrypt -r apertium/streamparser 'chat.freenode.net#apertium'
+# $ ~/.gem/ruby/*/bin/travis encrypt -r apertium/streamparser 'irc.oftc.net#apertium'
